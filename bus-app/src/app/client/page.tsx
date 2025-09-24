@@ -1,36 +1,64 @@
-'use client'; 
+'use client';
 import React, { useState } from 'react';
 
+const items = [
+  'Boonton', 'Bloom', 'Butler', 'Chatham',
+  'Dover', 'Hanover Park', 'Mendham',
+  'Mount Olive', 'Parsippany'
+];
+
 export default function Home() {
-    const [inputValue, setInputValue] = useState(''); // State to hold the input value
+  const [inputValue, setInputValue] = useState('');
+  const [filteredItems, setFilteredItems] = useState<string[]>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value); // Update state on text change
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
 
-    return (
-      <div className="font-sans grid min-h-screen p-8 mt-30">
-        <main className="flex flex-col items-center">
-          <h1 className="text-3xl font-bold">Simple Text Field Example</h1>
+    if (value === '') {
+      setFilteredItems([]);
+      setShowDropdown(false);
+      return;
+    }
 
-          {/* Text input field */}
-          <div className="mt-8">
-            <label htmlFor="simple-input" className="block text-lg mb-2">
-              Enter some text:
-            </label>
-            <input
-              id="simple-input"
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded-md"
-              placeholder="Type here..."
-            />
-          </div>
-
-          {/* Display the input value */}
-          <p className="mt-4">You typed: {inputValue}</p>
-        </main>
-      </div>
+    const filtered = items.filter(item =>
+      item.toLowerCase().startsWith(value.toLowerCase())
     );
+
+    setFilteredItems(filtered);
+    setShowDropdown(true);
+  };
+
+  const handleSelect = (item: string) => {
+    setInputValue(item);
+    setShowDropdown(false);
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-400 to-black px-4">
+      <div className="mt-144 w-full max-w-md relative">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          className="w-full p-2 text-white placeholder-gray-400 bg-gray-800 border border-white rounded-md"
+          placeholder="Enter your bus name..."
+        />
+        {showDropdown && filteredItems.length > 0 && (
+          <ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto">
+            {filteredItems.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => handleSelect(item)}
+                className="p-2 hover:bg-gray-100 cursor-pointer"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
 }
