@@ -1,36 +1,75 @@
-'use client'; 
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function Home() {
-    const [inputValue, setInputValue] = useState(''); // State to hold the input value
+export default function AdminLogin() {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value); // Update state on text change
-    };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    return (
-      <div className="font-sans grid min-h-screen p-8 mt-30">
-        <main className="flex flex-col items-center">
-          <h1 className="text-3xl font-bold">Simple Text Field Example</h1>
+    // Password Checking
+    if (password === 'MCSTstaffONLY') {
+      router.push('/admin/panel');
+    } else {
+      setError('Incorrect password. Try again.');
+    }
+  };
 
-          {/* Text input field */}
-          <div className="mt-8">
-            <label htmlFor="simple-input" className="block text-lg mb-2">
-              Enter some text:
-            </label>
-            <input
-              id="simple-input"
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded-md"
-              placeholder="Type here..."
-            />
-          </div>
+  // Automatic Error Clear
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError('');
+      }, 1000);
 
-          {/* Display the input value */}
-          <p className="mt-4">You typed: {inputValue}</p>
-        </main>
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-red-400 to-black px-4 p-6">
+      <div className="bg-black p-6 rounded-lg shadow-md w-full max-w-sm">
+        <h1 className="text-2xl font-bold mb-4 text-center text-white">
+          Admin Login
+        </h1>
+
+        <form onSubmit={handleSubmit}>
+          <label
+            htmlFor="password"
+            className="block mb-2 font-bold text-white"
+          >
+            Enter Password:
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={`w-full border p-2 rounded-md mb-4 placeholder-gray-400 bg-white outline-none
+              ${
+                error
+                  ? 'border-red-700 ring-4 ring-red-500'
+                  : 'border-gray-300 focus:border-gray-500'
+              }`}
+            placeholder="Password"
+          />
+          <button
+            type="submit"
+            className="w-full bg-red-600 text-white p-2 rounded-md hover:bg-red-700 transition"
+          >
+            Login
+          </button>
+        </form>
+              
+        {error && (
+          <p className="text-red-600 mt-4 text-center font-semibold text-lg">
+            {error}
+          </p>
+        )}
       </div>
-    );
+    </main>
+  );
 }
