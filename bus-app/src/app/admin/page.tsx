@@ -48,7 +48,7 @@ export default function AdminLogin() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={`w-full border p-2 rounded-md mb-4 placeholder-gray-400 bg-white outline-none
+            className={`w-full border p-2 rounded-md mb-4 placeholder-gray-400 text-black bg-white outline-none
               ${
                 error
                   ? 'border-red-700 ring-4 ring-red-500'
