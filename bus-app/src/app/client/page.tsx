@@ -46,7 +46,7 @@ export default function Home() {
           placeholder="Enter your bus name..."
         />
         {showDropdown && filteredItems.length > 0 && (
-          <ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto">
+          <ul className="absolute z-10 w-full mt-1 text-black bg-white border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto">
             {filteredItems.map((item, index) => (
               <li
                 key={index}
