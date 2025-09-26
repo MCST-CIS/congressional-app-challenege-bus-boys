@@ -28,16 +28,16 @@ export default function AdminPanel() {
         {/* Sidebar */}
         <aside className="w-64 bg-white border-r p-4">
           <nav className="flex flex-col gap-2">
-            <button className="text-left p-2 rounded hover:bg-gray-200 transition">
+            <button className="text-left text-black p-2 rounded hover:bg-gray-200 transition">
               Dashboard
             </button>
-            <button className="text-left p-2 rounded hover:bg-gray-200 transition">
+            <button className="text-left text-black p-2 rounded hover:bg-gray-200 transition">
               Bus Management
             </button>
-            <button className="text-left p-2 rounded hover:bg-gray-200 transition">
+            <button className="text-left text-black p-2 rounded hover:bg-gray-200 transition">
               User Logs
             </button>
-            <button className="text-left p-2 rounded hover:bg-gray-200 transition">
+            <button className="text-left text-black p-2 rounded hover:bg-gray-200 transition">
               Settings
             </button>
           </nav>
@@ -45,21 +45,21 @@ export default function AdminPanel() {
 
         {/* Content Area */}
         <section className="flex-1 p-6">
-          <h2 className="text-2xl font-semibold mb-4">Dashboard</h2>
+          <h2 className="text-2xl text-black font-semibold mb-4">Dashboard</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Example Cards */}
             <div className="bg-white shadow rounded-lg p-4">
-              <h3 className="text-lg font-bold mb-2">Total Buses</h3>
+              <h3 className="text-lg text-black font-bold mb-2">Total Buses</h3>
               <p className="text-2xl font-semibold text-blue-600">12</p>
             </div>
 
             <div className="bg-white shadow rounded-lg p-4">
-              <h3 className="text-lg font-bold mb-2">Active Users</h3>
+              <h3 className="text-lg text-black font-bold mb-2">Active Users</h3>
               <p className="text-2xl font-semibold text-green-600">54</p>
             </div>
 
             <div className="bg-white shadow rounded-lg p-4">
-              <h3 className="text-lg font-bold mb-2">Alerts</h3>
+              <h3 className="text-lg text-black font-bold mb-2">Alerts</h3>
               <p className="text-2xl font-semibold text-red-600">3</p>
             </div>
           </div>
