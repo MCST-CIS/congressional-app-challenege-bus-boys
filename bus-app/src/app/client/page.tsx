@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import BusLayout from '../components/BusLayout'
 
 const items = [
   'Boonton', 'Bloom', 'Butler', 'Chatham',
@@ -37,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-red-400 to-black px-4">
-      <div className="mt-144 w-full max-w-md relative">
+      <div className="w-full max-w-md relative">
         <input
           type="text"
           value={inputValue}
