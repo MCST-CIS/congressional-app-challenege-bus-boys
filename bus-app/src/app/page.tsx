@@ -20,10 +20,11 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="absolute bottom-4 w-full px-4 flex flex-col sm:flex-row justify-between text-white text-xl font-bold opacity-75">
-        <span className="mb-1 sm:mb-0">MCST Class of 2027</span>
-        <span className="text-right">Raymond, Tyler, Ansh, AJ</span>
-      </div>
+     <div className="absolute bottom-4 w-full px-4 flex flex-col sm:flex-row items-start text-white text-xl font-bold opacity-75">
+     <span className="mb-1 sm:mb-0">MCST Class of 2027</span>
+     <span className="sm:ml-6">Raymond, Tyler, Ansh, AJ</span>
+     </div>
+
     </main>
   );
 }
