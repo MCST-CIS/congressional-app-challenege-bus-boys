@@ -38,28 +38,33 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col gap-2 md:gap-0 md:flex-row items-center justify-center bg-gradient-to-r from-red-400 to-black px-4">
-      <BusLayout></BusLayout>
-      <div className="w-full md:w-1/2">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleChange}
-          className="w-full p-2 text-white placeholder-gray-400 bg-gray-800 border border-white rounded-md"
-          placeholder="Enter your bus name..."
-        />
-        {showDropdown && filteredItems.length > 0 && (
-          <ul className="absolute z-10 w-full mt-1 text-black bg-white border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto">
-            {filteredItems.map((item, index) => (
-              <li
-                key={index}
-                onClick={() => handleSelect(item)}
-                className="p-2 hover:bg-gray-100 cursor-pointer"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
+      <BusLayout />
+      <div className="w-full md:w-1/2 flex flex-col items-center">
+        {/* relative wrapper so the dropdown can be absolutely positioned under the input */}
+        <div className="relative w-1/2">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleChange}
+            className="w-full p-2 text-white placeholder-gray-400 bg-gray-800 border border-white rounded-md"
+            placeholder="Enter your bus name..."
+          />
+
+          {/* absolute dropdown: will NOT affect layout flow or page height */}
+          {showDropdown && filteredItems.length > 0 && (
+            <ul className="absolute left-0 top-full z-20 w-full mt-2 text-black bg-red-500 border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto">
+              {filteredItems.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleSelect(item)}
+                  className="p-2 font-bold hover:bg-red-600 cursor-pointer"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );
