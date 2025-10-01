@@ -37,7 +37,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-red-400 to-black px-4">
+    <div className="min-h-screen flex flex-col gap-2 md:gap-0 md:flex-row items-center justify-center bg-gradient-to-r from-red-400 to-black px-4">
       <BusLayout></BusLayout>
       <div className="w-full md:w-1/2">
         <input
