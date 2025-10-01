@@ -8,12 +8,12 @@ type MyBoxProps = {
   children: ReactNode;
 };
 
-export default function Bus({ children }: MyBoxProps) {
+export default function HorzBus({ children }: MyBoxProps) {
     return (
         <div className=""
             style={{
             width: '100%',
-            height: '7.5%',
+            height: '100%',
             color: 'white',
             display: 'flex',
             alignItems: 'center',
