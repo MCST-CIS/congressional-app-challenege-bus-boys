@@ -8,7 +8,7 @@ type MyBoxProps = {
   children: ReactNode;
 };
 
-export default function VertBus({ children }: MyBoxProps) {
+export default function HorzBus({ children }: MyBoxProps) {
     return (
         <div className=""
             style={{
