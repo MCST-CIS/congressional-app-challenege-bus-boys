@@ -20,7 +20,7 @@ export default function HorzBus({ children }: MyBoxProps) {
             background: 'black',
             justifyContent: 'center',
             fontWeight: 'bold',
-            fontSize: '1.5rem',
+            fontSize: '1.25rem',
             boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
             border: '1px solid red' 
             }}>
