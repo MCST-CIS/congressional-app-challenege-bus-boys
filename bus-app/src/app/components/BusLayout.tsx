@@ -3,17 +3,13 @@
 import { useState } from 'react';
 import Bus from './Bus'
 
-export default function BusLayout() {
+interface BusLayoutProps {
+  style1?: React.CSSProperties; 
+}
+
+export default function BusLayout({ style1 }: BusLayoutProps) {
     return (
-        <div className="border-8 border-black bg-gray-700 flex-col gap-2 md:mr-18 w-full md:w-[42.5%]"
-            style={{
-                height: '75vh',
-                color: 'white',
-                display: 'flex',
-                fontWeight: 'bold',
-                fontSize: '1.25rem',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            }}>
+        <div className="border-8 border-black bg-gray-700 flex-col gap-2 md:mr-18 w-full md:w-[35%] h-[75vh] text-white flex font-bold text-[1.25rem] shadow-[0_4px_12px_rgba(0,0,0,0.1)]" style={style1}>
             <div className="justify-center flex gap-2 w-full">
                 <div className=""
                     style={{
