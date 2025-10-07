@@ -11,3 +11,9 @@
  - npm install
  
  - npm run dev
+
+## HOW TO SAVE:
+
+ - git add .
+ - git commit -m "commit message"
+ - git push
