@@ -12,6 +12,8 @@ export default function Home() {
   const [inputValue, setInputValue] = useState('');
   const [filteredItems, setFilteredItems] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -42,6 +44,30 @@ export default function Home() {
     setRotation((prev) => prev + 90); // increment by 90°
   };
 
+  const handleSubmit = async () => {
+    if (!inputValue.trim()) {
+      alert('Please enter a bus name.');
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/lookup?bus=${encodeURIComponent(inputValue.trim())}`);
+      const data = await res.json();
+
+      if (res.ok) {
+        setResult(`Bus ${data.bus} is assigned number: ${data.number}`);
+        setError(null);
+      } else {
+        setResult(null);
+        setError(data.message || 'Error occurred');
+      }
+    } catch (err) {
+      setResult(null);
+      setError('Failed to fetch bus information.');
+      console.error(err);
+    }
+  };
+  
   return (
     <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-red-400 to-black px-4">
       <BusLayout style1={{ transform: `rotate(${rotation}deg)` }}></BusLayout>
@@ -90,9 +116,11 @@ export default function Home() {
             <button onClick={rotateBus} className="text-sm sm:text-base md:text-lg w-2/5 h-4/9 border-8 border-black bg-red-600 rounded-full text-black" style={{fontWeight: 'bold'}}>
               ROTATE
             </button>
-            <button className="text-sm sm:text-base md:text-lg w-2/5 h-4/9 border-8 border-black bg-red-600 rounded-full text-black" style={{fontWeight: 'bold'}}>
+            <button onClick={handleSubmit} className="text-sm sm:text-base md:text-lg w-2/5 h-4/9 border-8 border-black bg-red-600 rounded-full text-black" style={{fontWeight: 'bold'}}>
               SUBMIT
             </button>
+            {result && (<p className="mt-6 text-green-400 text-xl font-semibold">{result}</p>)}
+            {error && (<p className="mt-6 text-red-500 text-xl font-semibold">{error}</p>)}
         </div>
       </div>
     </div>
