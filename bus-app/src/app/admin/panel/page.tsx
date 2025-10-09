@@ -57,7 +57,7 @@ export default function AdminPanel() {
       alert("Please enter both a bus name and number.");
       return;
     }
-    if (isNaN(Number(numberValue)) || Number(numberValue) <= 0 || Number(numberValue) > 26) {
+    if (isNaN(Number(numberValue)) || Number(numberValue) <= 0 || Number(numberValue) > 25) {
       alert("Bus number must be a valid number (no letters).");
       return;
     }
