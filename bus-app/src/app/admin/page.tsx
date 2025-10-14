@@ -1,10 +1,11 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTimedClear } from '../hooks/useTimedClear';
 
 export default function AdminLogin() {
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useTimedClear('');
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -17,17 +18,6 @@ export default function AdminLogin() {
       setError('Incorrect password. Try again.');
     }
   };
-
-  // Automatic Error Clear
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError('');
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-red-400 to-black px-4 p-6">

@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import BusLayout from '../components/BusLayout'
+import { useTimedClear } from '../hooks/useTimedClear';
 
 const items = [
   'Boonton', 'Bloom', 'Butler', 'Chatham',
@@ -12,8 +13,8 @@ export default function Home() {
   const [inputValue, setInputValue] = useState('');
   const [filteredItems, setFilteredItems] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useTimedClear('');
+  const [error, setError] = useTimedClear('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -46,7 +47,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     if (!inputValue.trim()) {
-      alert('Please enter a bus name.');
+      setError('Please enter a bus name.');
       return;
     }
 
@@ -56,13 +57,10 @@ export default function Home() {
 
       if (res.ok) {
         setResult(`Bus ${data.bus} is assigned number: ${data.number}`);
-        setError(null);
       } else {
-        setResult(null);
         setError(data.message || 'Error occurred');
       }
     } catch (err) {
-      setResult(null);
       setError('Failed to fetch bus information.');
       console.error(err);
     }
