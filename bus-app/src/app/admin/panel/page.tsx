@@ -61,6 +61,10 @@ export default function AdminPanel() {
       alert("Bus number must be a valid number (no letters).");
       return;
     }
+    /*if (!items.includes(inputValue)) {
+      alert("That bus name is not valid.");
+      return;
+    }*/
     try {
       const res = await fetch('/api/assign', {
         method: 'POST',

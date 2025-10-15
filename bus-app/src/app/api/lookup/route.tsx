@@ -1,28 +1,37 @@
-import { assignments } from '../_data/assignments';
+// src/pages/api/bus.ts (or /app/api/bus/route.ts for app router)
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '../../lib/supabaseClient';
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const bus = searchParams.get("bus");
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const bus = searchParams.get('bus');
 
-  if (!bus) {
-    return new Response(JSON.stringify({ error: "Bus name is required" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+    if (!bus) {
+      return NextResponse.json(
+        { error: 'Bus name is required' },
+        { status: 400 }
+      );
+    }
 
-  const number = assignments[bus];
-  console.log(assignments);
+    const { data, error } = await supabase
+      .from('buses')
+      .select('id')
+      .eq('bus_name', bus)
+      .single();
 
-  if (number) {
-    return new Response(JSON.stringify({ bus, number }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  } else {
-    return new Response(JSON.stringify({ bus, message: "Bus has not arrived yet" }), {
-      status: 404,
-      headers: { "Content-Type": "application/json" },
-    });
+    if (error) {
+      if (error.code === 'PGRST116') { // no rows found
+        return NextResponse.json(
+          { bus, message: 'Bus has not arrived yet' },
+          { status: 404 }
+        );
+      }
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ bus, number: data.id });
+  } catch {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 500 });
   }
 }

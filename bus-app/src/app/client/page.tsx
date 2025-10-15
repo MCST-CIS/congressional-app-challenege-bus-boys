@@ -47,7 +47,7 @@ export default function Home() {
 
   const handleSubmit = async () => {
     if (!inputValue.trim()) {
-      setError('Please enter a bus name.');
+      setError(inputValue);
       return;
     }
 
