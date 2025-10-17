@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useTimedClear(initialValue: string, timeout: number = 2000) {
+export function useTimedClear(initialValue: string, timeout: number = 1500) {
   const [text, setText] = useState(initialValue);
 
   useEffect(() => {
