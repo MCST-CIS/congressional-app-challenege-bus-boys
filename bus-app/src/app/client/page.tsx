@@ -6,7 +6,8 @@ import { useTimedClear } from '../hooks/useTimedClear';
 const items = [
   'Boonton', 'Bloom', 'Butler', 'Chatham',
   'Dover', 'Hanover Park', 'Mendham',
-  'Mount Olive', 'Parsippany'
+  'Mount Olive', 'Parsippany', 'Madison', 'Randolph', 
+  'Roxbury', 'Lincoln Park', 'Pequannock', 
 ];
 
 export default function Home() {
@@ -50,7 +51,10 @@ export default function Home() {
       setError(inputValue);
       return;
     }
-
+    if (!items.includes(inputValue)) {
+      alert("That bus name is not valid.");
+      return;
+    }
     try {
       const res = await fetch(`/api/lookup?bus=${encodeURIComponent(inputValue.trim())}`);
       const data = await res.json();
