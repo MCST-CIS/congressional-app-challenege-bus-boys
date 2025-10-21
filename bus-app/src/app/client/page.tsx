@@ -4,10 +4,12 @@ import BusLayout from '../components/BusLayout'
 import { useTimedClear } from '../hooks/useTimedClear';
 
 const items = [
-  'Boonton', 'Bloom', 'Butler', 'Chatham',
-  'Dover', 'Hanover Park', 'Mendham',
-  'Mount Olive', 'Parsippany', 'Madison', 'Randolph', 
-  'Roxbury', 'Lincoln Park', 'Pequannock', 
+  'Boonton', 'Butler/Bloom', 'Chatham', 'Dover', 'Hanover Park',
+  'Jefferson-Hop', 'Jefferson-Oak', 'Lincoln Park', 'Long Hill', 'Madison',
+  'Mendham', 'Montville 1', 'Montville 2', 'Montville 3', 'Morristown',
+  'MH1', 'MH2', 'MH3', 'MH4', 'Mount Olive',
+  'Mountain Lakes', 'Parsippany 101', 'Parsippany 102', 'Parsippany 103', 'Parsippany 104',
+  'Pequannock', 'Randolph', 'Riverside/Kinnelon', 'Roxbury', 'West Morris Central',
 ];
 
 export default function Home() {
@@ -28,7 +30,7 @@ export default function Home() {
     }
 
     const filtered = items.filter(item =>
-      item.toLowerCase().startsWith(value.toLowerCase())
+      item.toLowerCase().includes(value.toLowerCase())
     );
 
     setFilteredItems(filtered);
