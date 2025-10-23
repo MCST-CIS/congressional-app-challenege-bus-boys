@@ -19,6 +19,8 @@ export default function Home() {
   const [result, setResult] = useTimedClear('');
   const [error, setError] = useTimedClear('');
 
+  const [highlightedBus, setHighlightedBus] = useState<number | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
@@ -42,10 +44,10 @@ export default function Home() {
     setShowDropdown(false);
   };
 
-  const [rotation, setRotation] = useState(0); // rotation in degrees
+  const [rotation, setRotation] = useState(0);
 
   const rotateBus = () => {
-    setRotation((prev) => prev + 90); // increment by 90°
+    setRotation((prev) => prev + 90);
   };
 
   const handleSubmit = async () => {
@@ -57,12 +59,15 @@ export default function Home() {
       alert("That bus name is not valid.");
       return;
     }
+
     try {
       const res = await fetch(`/api/lookup?bus=${encodeURIComponent(inputValue.trim())}`);
       const data = await res.json();
 
       if (res.ok) {
         setResult(`Bus ${data.bus} is assigned number: ${data.number}`);
+        setHighlightedBus(data.number);
+        setTimeout(() => setHighlightedBus(null), 1500);
       } else {
         setError(data.message || 'Error occurred');
       }
@@ -71,12 +76,13 @@ export default function Home() {
       console.error(err);
     }
   };
-  
+
   return (
     <div className="h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-red-400 to-black px-4">
-      <BusLayout style1={{ transform: `rotate(${rotation}deg)` }}></BusLayout>
-      <div className = "border-8 border-black bg-gray-700 h-[75%] w-full md:w-1/3 flex flex-col justify-center">
-        <div className = "w-full text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-white to-red-600 animate-gradient px-2" 
+      <BusLayout style1={{ transform: `rotate(${rotation}deg)` }} highlightedBus={highlightedBus} />
+      
+      <div className="border-8 border-black bg-gray-700 h-[75%] w-full md:w-1/3 flex flex-col justify-center">
+        <div className="w-full text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-white to-red-600 animate-gradient px-2" 
             style={{ 
             width: '100%',
             height: '100%',
@@ -89,8 +95,8 @@ export default function Home() {
             }}>
           Bus Panel for Students
         </div>
-        <div className=" w-full flex flex-col items-center">
-          {/* relative wrapper so the dropdown can be absolutely positioned under the input */}
+
+        <div className="w-full flex flex-col items-center">
           <div className="rounded-full relative w-2/3">
             <input
               type="text"
@@ -100,7 +106,6 @@ export default function Home() {
               placeholder="Enter your bus name..."
             />
 
-            {/* absolute dropdown: will NOT affect layout flow or page height */}
             {showDropdown && filteredItems.length > 0 && (
               <ul className="absolute left-0 top-full z-20 w-full mt-2 text-black bg-red-500 border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto">
                 {filteredItems.map((item, index) => (
@@ -116,15 +121,16 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className = "h-9/10 flex flex-row items-center justify-center gap-4">
-            <button onClick={rotateBus} className="text-sm sm:text-base md:text-lg w-2/5 h-4/9 border-8 border-black bg-red-600 rounded-full text-black" style={{fontWeight: 'bold'}}>
-              ROTATE
-            </button>
-            <button onClick={handleSubmit} className="text-sm sm:text-base md:text-lg w-2/5 h-4/9 border-8 border-black bg-red-600 rounded-full text-black" style={{fontWeight: 'bold'}}>
-              SUBMIT
-            </button>
-            {result && (<p className="mt-6 text-green-400 text-xl font-semibold">{result}</p>)}
-            {error && (<p className="mt-6 text-red-500 text-xl font-semibold">{error}</p>)}
+
+        <div className="h-9/10 flex flex-row items-center justify-center gap-4">
+          <button onClick={rotateBus} className="text-sm sm:text-base md:text-lg w-2/5 h-4/9 border-8 border-black bg-red-600 rounded-full text-black font-bold">
+            ROTATE
+          </button>
+          <button onClick={handleSubmit} className="text-sm sm:text-base md:text-lg w-2/5 h-4/9 border-8 border-black bg-red-600 rounded-full text-black font-bold">
+            SUBMIT
+          </button>
+          {result && (<p className="mt-6 text-green-400 text-xl font-semibold">{result}</p>)}
+          {error && (<p className="mt-6 text-red-500 text-xl font-semibold">{error}</p>)}
         </div>
       </div>
     </div>
