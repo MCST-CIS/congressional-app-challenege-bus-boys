@@ -1,30 +1,31 @@
 'use client';
 
-import { propagateServerField } from 'next/dist/server/lib/render-server';
-import { useState } from 'react';
 import { ReactNode } from 'react';
 
-type MyBoxProps = {
+type BusProps = {
   children: ReactNode;
+  highlighted?: boolean;
 };
 
-export default function HorzBus({ children }: MyBoxProps) {
-    return (
-        <div className=""
-            style={{
-            width: '100%',
-            height: '100%',
-            color: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            background: 'black',
-            justifyContent: 'center',
-            fontWeight: 'bold',
-            fontSize: '1.25rem',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            border: '1px solid red' 
-            }}>
-        {children}
-        </div>
-    );
+export default function Bus({ children, highlighted = false }: BusProps) {
+  return (
+    <div
+      className={highlighted ? 'animate-bus-blink' : ''}
+      style={{
+        width: '100%',
+        height: '100%',
+        color: highlighted ? 'black' : 'white',
+        background: highlighted ? 'yellow' : 'black',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 'bold',
+        fontSize: '1.25rem',
+        border: '1px solid red',
+        transition: 'background 0.3s ease, color 0.3s ease',
+      }}
+    >
+      {children}
+    </div>
+  );
 }
