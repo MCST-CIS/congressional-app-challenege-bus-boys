@@ -11,6 +11,7 @@ export default function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+  try {
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,8 +23,12 @@ export default function AdminLogin() {
     } else {
       setError('Incorrect password. Try again.');
     }
+    catch (err) {
+      console.error('Login request failed:', err);
+      setError('Something went wrong, please try again.');
+    }
   };
-
+ 
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-red-400 to-black px-4 p-6">
