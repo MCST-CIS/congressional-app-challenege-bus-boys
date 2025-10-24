@@ -8,16 +8,22 @@ export default function AdminLogin() {
   const [error, setError] = useTimedClear('');
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Password Checking
-    if (password === 'MCSTstaffONLY') {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+
+    if (res.ok) {
       router.push('/admin/panel');
     } else {
       setError('Incorrect password. Try again.');
     }
   };
+
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-red-400 to-black px-4 p-6">
