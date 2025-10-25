@@ -1,3 +1,7 @@
+/*
+
+Future Update **
+
 import React, { useMemo, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -113,3 +117,4 @@ export default function GIBSToggleMap() {
     </div>
   );
 }
+*/
