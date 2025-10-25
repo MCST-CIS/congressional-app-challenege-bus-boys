@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTimedClear } from '../hooks/useTimedClear';
 
@@ -11,24 +11,23 @@ export default function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-  try {
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    });
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
 
-    if (res.ok) {
-      router.push('/admin/panel');
-    } else {
-      setError('Incorrect password. Try again.');
-    }
-    catch (err) {
+      if (res.ok) {
+        router.push('/admin/panel');
+      } else {
+        setError('Incorrect password. Try again.');
+      }
+    } catch (err) {
       console.error('Login request failed:', err);
       setError('Something went wrong, please try again.');
     }
   };
- 
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-red-400 to-black px-4 p-6">
@@ -64,7 +63,7 @@ export default function AdminLogin() {
             Login
           </button>
         </form>
-              
+
         {error && (
           <p className="text-red-600 mt-4 text-center font-semibold text-lg">
             {error}
