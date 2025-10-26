@@ -1,8 +1,22 @@
 // src/pages/api/bus.ts (or /app/api/bus/route.ts for app router)
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '../../lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+);
 
 export async function POST(request: NextRequest) {
+  const cookieStore = await cookies();
+  const adminCookie = cookieStore.get('admin_auth');
+
+  // Check if cookie exists and is valid
+  if (!adminCookie || adminCookie.value !== 'true') {
+    return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { bus, number } = await request.json();
 
@@ -13,7 +27,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('buses')
       .upsert({ bus_name: bus, id: number }, { onConflict: 'bus_name' });
 
