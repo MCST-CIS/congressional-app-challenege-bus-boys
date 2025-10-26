@@ -13,8 +13,19 @@ export async function POST(request: NextRequest) {
   const adminCookie = cookieStore.get('admin_auth');
 
   // Check if cookie exists and is valid
-  if (!adminCookie || adminCookie.value !== 'true') {
+  if (!adminCookie) {
     return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  }
+  const sessionId = adminCookie.value;
+
+  const { data } = await supabaseAdmin
+    .from('admin_sessions')
+    .select('*')
+    .eq('session_id', sessionId)
+    .single();
+
+  if (!data || new Date(data.exp_date) < new Date()) {
+    return NextResponse.json({ success: false, status: 401 });
   }
 
   try {
