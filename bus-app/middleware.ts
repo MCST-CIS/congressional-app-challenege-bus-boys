@@ -1,14 +1,29 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
-export function middleware(req: NextRequest) {
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+);
+
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
-
-  // Protect the admin panel route
   if (url.pathname.startsWith('/admin/panel')) {
-    const authCookie = req.cookies.get('admin_auth');
-    if (!authCookie || authCookie.value !== 'true') {
-      // redirect to /admin (login page)
+    const adminCookie = req.cookies.get('admin_auth');
+    if (!adminCookie) {
+      const loginUrl = new URL('/admin', req.url);
+      return NextResponse.redirect(loginUrl);
+    }
+    const sessionId = adminCookie.value;
+  
+    const { data } = await supabaseAdmin
+      .from('admin_sessions')
+      .select('*')
+      .eq('session_id', sessionId)
+      .single();
+  
+    if (!data || new Date(data.exp_date) < new Date()) {
       const loginUrl = new URL('/admin', req.url);
       return NextResponse.redirect(loginUrl);
     }
