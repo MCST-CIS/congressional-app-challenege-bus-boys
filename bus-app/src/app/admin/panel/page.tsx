@@ -1,5 +1,4 @@
 'use client';
-// CHATGPT TEMPLATE FOR NOW
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import BusLayout from '../../components/BusLayout';
