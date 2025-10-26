@@ -20,7 +20,7 @@ export default function Bus({ children, highlighted = false }: BusProps) {
         alignItems: 'center',
         justifyContent: 'center',
         fontWeight: 'bold',
-        fontSize: '1.25rem',
+        fontSize: '.9rem',
         border: '1px solid red',
         transition: 'background 0.3s ease, color 0.3s ease',
       }}
