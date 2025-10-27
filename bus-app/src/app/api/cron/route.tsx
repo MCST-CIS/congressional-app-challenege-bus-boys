@@ -9,8 +9,6 @@ const supabaseAdmin = createClient(
 export async function GET(req: Request) {
   // Perform safety check w/auth Header
   const authHeader = req.headers.get('authorization');
-  console.log(Object.fromEntries(request.headers.entries()));
-
   const expectedToken = process.env.CRON_SECRET_TOKEN;
 
   if (authHeader !== `Bearer ${expectedToken}`) {
