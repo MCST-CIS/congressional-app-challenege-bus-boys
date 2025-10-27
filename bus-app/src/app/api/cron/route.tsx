@@ -15,11 +15,19 @@ export async function DELETE(req: Request) {
     return NextResponse.json({error: 'Unauthorized' }, { status: 401 });
   }
   
-  const { error } = await supabaseAdmin.from('buses').delete().neq('bus_name', '');
-  error = await supabaseAdmin.from('admin_sessions').delete().neq('session_id', '');
+  const { error: busesError } = await supabaseAdmin
+    .from('buses')
+    .delete()
+    .neq('bus_name', '');
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, {status: 500});
+  const { error: sessionsError } = await supabaseAdmin
+    .from('admin_sessions')
+    .delete()
+    .neq('session_id', '');
+
+  if (busesError || sessionsError) {
+      return NextResponse.json({ error: busesError?.message || sessionsError?.message}, { status: 500 });
   }
-  return NextResponse.json({ success: true, message: 'All buses have been cleared' });
+
+  return NextResponse.json({ success: true, message: 'All buses and sessions have been cleared' });
 }
