@@ -2,8 +2,10 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col items-center justify-center min-h-screen p-8 bg-gradient-to-r from-red-400 to-black px-4">
-      <h1 className="text-3xl text-white font-bold mb-8">MCST Bus Tracking App</h1>
+    <main className="relative flex flex-col items-center justify-center min-h-screen p-8 px-4 fade-bg">
+      <div className="w-full flex justify-center">
+       <h1 className="text-3xl text-white font-bold mb-8 typewriter">MCST Bus Tracking App</h1>
+      </div>
       <p className="mb-6 text-white font-bold">Choose where you want to go:</p>
 
       <div className="flex gap-4">
