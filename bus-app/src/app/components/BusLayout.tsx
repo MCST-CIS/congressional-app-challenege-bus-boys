@@ -62,14 +62,14 @@ export default function BusLayout({ style1, highlightedBus }: BusLayoutProps) {
           <div className="justify-center flex flex-col gap-2 w-8/20">
             <div className="h-3/8"></div>
             <div className="justify-center flex h-1/4">
-              <Bus highlighted={highlightedBus === 13}>13</Bus>
+              <Bus highlighted={highlightedBus === 12}>12</Bus>
               <div className="w-1/5"></div>
-              <Bus highlighted={highlightedBus === 14}>14</Bus>
+              <Bus highlighted={highlightedBus === 11}>11</Bus>
             </div>
             <div className="justify-center flex h-1/4">
-              <Bus highlighted={highlightedBus === 11}>11</Bus>
+              <Bus highlighted={highlightedBus === 14}>14</Bus>
               <div className="w-1/5"></div>
-              <Bus highlighted={highlightedBus === 12}>12</Bus>
+              <Bus highlighted={highlightedBus === 13}>13</Bus>
             </div>
             <div className="h-1/8"></div>
           </div>
