@@ -6,7 +6,7 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function GET(req: Request) {
+export async function DELETE(req: Request) {
   // Perform safety check w/auth Header
   const authHeader = req.headers.get('authorization');
   const expectedToken = process.env.CRON_SECRET_TOKEN;
