@@ -16,7 +16,7 @@ export async function DELETE(req: Request) {
   }
   
   const { error } = await supabaseAdmin.from('buses').delete().neq('bus_name', '');
-  const { error } = await supabaseAdmin.from('admin_sessions').delete().neq('session_id', '');
+  error = await supabaseAdmin.from('admin_sessions').delete().neq('session_id', '');
 
   if (error) {
     return NextResponse.json({ error: error.message }, {status: 500});
