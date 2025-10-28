@@ -41,7 +41,7 @@
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  animation: typing 2.5s steps(40, end) forwards;
+  animation: typing 5s steps(40, end) forwards;
   max-width: 0;
 }
 
