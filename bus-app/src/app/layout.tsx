@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "MCST Bus Tracking App",
   description: "Generated with Next.js",
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.jpg",
   },
 };
 
